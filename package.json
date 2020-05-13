@@ -23,5 +23,15 @@
   "bugs": {
     "url": "https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer/issues"
   },
-  "homepage": "https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer#readme"
+  "homepage": "https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.13",
+    "request": "^2.88.2"
+  }
 }
