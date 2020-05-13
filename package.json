@@ -1,0 +1,27 @@
+{
+  "name": "scrap_import",
+  "version": "1.0.0",
+  "description": "Node.js app that scraps the password protected web page's big data and import them into mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer.git"
+  },
+  "keywords": [
+    "node.js",
+    "requeset",
+    "axios",
+    "cheerio",
+    "mongoose",
+    "schema"
+  ],
+  "author": "Murrell Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer/issues"
+  },
+  "homepage": "https://github.com/Klikz-US/Node.js-web-scraper-and-db-importer#readme"
+}
