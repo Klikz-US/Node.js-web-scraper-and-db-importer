@@ -112,7 +112,7 @@ async function start_pet_import(thread) {
             const photoImport = new PhotoImportSchema(data);
 
             if (data.microchip !== "") {
-                PetImportSchema.findOneAndUpdate(
+                await PetImportSchema.findOneAndUpdate(
                     { microchip: data.microchip },
                     data,
                     async function (err, pet) {
@@ -122,14 +122,30 @@ async function start_pet_import(thread) {
                                 err + " :: on page " + process
                             );
                         if (!pet) {
-                            await petImport.save();
+                            try {
+                                await petImport.save();
+                                await debug.log(
+                                    thread,
+                                    "saved new pet from page " + process
+                                );
+                            } catch (error) {
+                                await debug.log(
+                                    thread,
+                                    error + " :: on page " + process
+                                );
+                            }
+                        } else {
+                            await debug.log(
+                                thread,
+                                "updated new pet from page " + process
+                            );
                         }
                     }
                 );
             }
 
             if (data.email !== "") {
-                OwnerImportSchema.findOneAndUpdate(
+                await OwnerImportSchema.findOneAndUpdate(
                     { email: data.email },
                     data,
                     async function (err, owner) {
@@ -139,14 +155,30 @@ async function start_pet_import(thread) {
                                 err + " :: on page " + process
                             );
                         if (!owner) {
-                            await ownerImport.save();
+                            try {
+                                await ownerImport.save();
+                                await debug.log(
+                                    thread,
+                                    "saved new owner from page " + process
+                                );
+                            } catch (error) {
+                                await debug.log(
+                                    thread,
+                                    error + " :: on page " + process
+                                );
+                            }
+                        } else {
+                            await debug.log(
+                                thread,
+                                "updated new owner from page " + process
+                            );
                         }
                     }
                 );
             }
 
             if (data.petPhotoData !== "") {
-                PhotoImportSchema.findOneAndUpdate(
+                await PhotoImportSchema.findOneAndUpdate(
                     { petMicrochip: data.petMicrochip },
                     data,
                     async function (err, photo) {
@@ -156,7 +188,23 @@ async function start_pet_import(thread) {
                                 err + " :: on page " + process
                             );
                         if (!photo) {
-                            await photoImport.save();
+                            try {
+                                await photoImport.save();
+                                await debug.log(
+                                    thread,
+                                    "saved new photo from page " + process
+                                );
+                            } catch (error) {
+                                await debug.log(
+                                    thread,
+                                    error + " :: on page " + process
+                                );
+                            }
+                        } else {
+                            await debug.log(
+                                thread,
+                                "updated new photo from page " + process
+                            );
                         }
                     }
                 );
