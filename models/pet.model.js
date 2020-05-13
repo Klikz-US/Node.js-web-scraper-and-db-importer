@@ -6,15 +6,14 @@ let petImportSchema = new Schema(
         microchip: {
             type: String,
         },
-        created_at: {
-            type: Date,
+        registered_at: {
+            type: String,
         },
         petName: {
             type: String,
         },
         petSpecies: {
             type: String,
-            default: "dog",
         },
         petBreed: {
             type: String,
@@ -26,10 +25,9 @@ let petImportSchema = new Schema(
         },
         petGender: {
             type: String,
-            default: "Male",
         },
         petBirth: {
-            type: Date,
+            type: String,
         },
         specialNeeds: {
             type: String,
@@ -38,7 +36,7 @@ let petImportSchema = new Schema(
             type: String,
         },
         dateRV: {
-            type: Date,
+            type: String,
         },
         implantedCompany: {
             type: String,
@@ -54,6 +52,7 @@ let petImportSchema = new Schema(
     {
         collection: "pets",
         timestamps: {
+            createdAt: "created_at",
             updatedAt: "updated_at",
         },
     }

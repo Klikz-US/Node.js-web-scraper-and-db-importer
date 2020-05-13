@@ -47,12 +47,14 @@ let ownerSchema = new Schema(
         },
         ownerCountry: {
             type: String,
-            default: "US",
         },
         ownerSecContact: {
             type: String,
         },
         ownerNote: {
+            type: String,
+        },
+        registered_at: {
             type: String,
         },
     },

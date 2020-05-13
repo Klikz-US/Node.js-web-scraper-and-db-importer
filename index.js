@@ -6,7 +6,6 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
 const axios = require("axios");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
-const moment = require("moment");
 
 mongoose.connect(
     "mongodb+srv://stl:stl@cluster0-p8kcd.mongodb.net/savethislife?authSource=admin&replicaSet=Cluster0-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true",
@@ -30,7 +29,7 @@ connection.once("open", function () {
 
 const debug = require("./log");
 const max_thread_num = 30;
-const max_pet_id = 100000;
+const max_pet_id = 1100000;
 
 async function start_pet_import(thread) {
     await debug.log(thread, "starting thread " + thread);
@@ -53,11 +52,10 @@ async function start_pet_import(thread) {
                 microchip: $(
                     "#pet-form > div > .panel-body > div:nth-child(2) > .panel-body > div:nth-child(3) > span"
                 ).text(),
-                created_at: Date(
-                    $(
-                        "#pet-form > div > .panel-body > div:nth-child(2) > .panel-body > div:nth-child(5) > span"
-                    ).text()
-                ),
+                registered_at: $(
+                    "#pet-form > div > .panel-body > div:nth-child(2) > .panel-body > div:nth-child(5) > span"
+                ).text(),
+
                 petName: $("#petname").attr("value"),
                 petSpecies: $("select[name='species'] option:selected").attr(
                     "value"
@@ -67,17 +65,18 @@ async function start_pet_import(thread) {
                 petGender: $("select[name='gender'] option:selected").attr(
                     "value"
                 ),
-                petBirth: Date($("input[name='birthdate']").attr("value")),
+                petBirth: $("input[name='birthdate']").attr("value"),
 
                 specialNeeds: $("textarea[name='needs']").text(),
                 vetInfo: $("textarea[name='veterinary']").text(),
-                dateRV: Date($("input[name='datevacc']").attr("value")),
+                dateRV: $("input[name='datevacc']").attr("value"),
                 implantedCompany: $("input[name='purchasedfrom']").attr(
                     "value"
                 ),
                 email: $("input[name='owneremail']").attr("value"),
                 membership: "platinum",
 
+                ownerName: $("input[name='ownername']").attr("value"),
                 ownerPhone1: $("input[name='cellphone']").attr("value"),
                 ownerPhone2: $("input[name='secondphone']").attr("value"),
                 ownerPhone3: $("input[name='addphone0']").attr("value"),
@@ -104,6 +103,9 @@ async function start_pet_import(thread) {
             };
             if ($(".container > div > .panel-warning").length !== 0)
                 data.membership = "diamond";
+            if (data.petSpecies === "") data.petSpecies = "Dog";
+            if (data.petGender === "") data.petGender = "Male";
+            if (data.ownerCountry === "") data.ownerCountry = "US";
 
             const petImport = new PetImportSchema(data);
             const ownerImport = new OwnerImportSchema(data);
